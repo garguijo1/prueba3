@@ -1,14 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    public Text conteo;
+    public Text win;
+    private int punto;
+
     bool salto = true;
     // Start is called before the first frame update
     void Start()
     {
-
+        punto = 0;
+        SetCountText();
+        win.text = "";
     }
 
     // Update is called once per frame
@@ -48,11 +55,22 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("moneda"))
         {
             collision.gameObject.SetActive(false);
+            punto = punto + 1;
+            SetCountText();
         }
 
        if (collision.gameObject.CompareTag("agua"))
         {
             salto = false;
+        }
+    }
+
+    void SetCountText()
+    {
+        conteo.text = "Puntos: " + punto.ToString();
+        if(punto >= 5)
+        {
+            win.text = "GANASTE";
         }
     }
 
